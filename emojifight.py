@@ -130,6 +130,7 @@ dispatcher.add_handler(message_handler)
 
 # Start the Bot
 updater.start_polling()
+print("Your Bot Started Successfully!")
 
 # Run the bot until you press Ctrl-C
 updater.idle()
