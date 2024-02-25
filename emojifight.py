@@ -126,6 +126,22 @@ def profile(update: Update, context: CallbackContext) -> None:
 # Schedule the clear_top_collection function to run daily
 schedule.every().day.at("00:00").do(clear_top_collection)
 
+def top(update: Update, context: CallbackContext) -> None:
+    chat_id = update.message.chat_id
+
+    if chat_id > 0:
+        update.message.reply_text("This command is only supported in group chats.")
+        return
+
+    today = datetime.datetime.now().strftime("%Y-%m-%d")
+    top_users = today_top_users_collection.find({"date": today, "chat_id": chat_id}).sort("points", pymongo.DESCENDING).limit(10)
+
+    message = f"Top 10 users with most emoji messages today in this group:\n"
+    for user in top_users:
+        message += f"{user['user_id']} - {user['points']} messages\n"
+
+    update.message.reply_text(message)
+
 # ...
 
 # Create an instance of the Updater class
