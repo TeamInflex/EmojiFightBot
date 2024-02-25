@@ -5,7 +5,7 @@ import datetime
 import time
 import schedule
 from telegram import Update
-from telegram.ext import Updater, CommandHandler, MessageHandler, CallbackContext, Filters
+from telegram.ext import Updater, CommandHandler, MessageHandler, CallbackContext, Filters, Dispatcher
 from dotenv import load_dotenv
 from config import *
 
