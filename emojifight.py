@@ -144,6 +144,14 @@ def top(update: Update, context: CallbackContext) -> None:
 
 # ...
 
+# Function to handle all messages
+def handle_messages(update: Update, context: CallbackContext) -> None:
+    # Your logic for handling messages goes here
+    pass
+
+# Create a MessageHandler instance
+message_handler = MessageHandler(Filters.all, handle_messages)
+
 # Create an instance of the Updater class
 updater = Updater(token=TELEGRAM_BOT_TOKEN, use_context=True)
 
