@@ -23,6 +23,14 @@ blocked_users_collection = db["blockedusers"]
 today_top_users_collection = db["todaytopusers"]
 today_top_groups_collection = db["todaytopgroups"]
 
+# Function to clear top collections
+def clear_top_collection():
+    today = datetime.datetime.now().strftime("%Y-%m-%d")
+    # Clear today's top users collection
+    today_top_users_collection.delete_many({"date": {"$ne": today}})
+    # Clear today's top groups collection
+    today_top_groups_collection.delete_many({"date": {"$ne": today}})
+
 # Command handlers
 def start(update: Update, context: CallbackContext) -> None:
     chat_id = update.message.chat_id
