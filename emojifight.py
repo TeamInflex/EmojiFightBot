@@ -119,6 +119,10 @@ def show_overall_top_groups(update: Update):
 
 # ...
 
+def profile(update: Update, context: CallbackContext) -> None:
+    user_id = update.message.from_user.id
+    update.message.reply_text(f"Your profile: User ID - {user_id}")
+
 # Schedule the clear_top_collection function to run daily
 schedule.every().day.at("00:00").do(clear_top_collection)
 
