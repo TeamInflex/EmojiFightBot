@@ -23,7 +23,17 @@ blocked_users_collection = db["blockedusers"]
 
 # Command handlers
 def start(update: Update, context: CallbackContext) -> None:
-    update.message.reply_text('Hello! I am EmojiFight bot. Use /help to see available commands.')
+    chat_id = update.message.chat_id
+    user_id = update.message.from_user.id
+
+    if chat_id > 0:  # Private chat
+        update.message.reply_text('Hello! I am EmojiFight bot. Use /help to see available commands.')
+        # Save user in users collection
+        users_collection.update_one({"user_id": user_id}, {"$set": {"user_id": user_id}}, upsert=True)
+    else:  # Group chat
+        # Save group chat id in groups collection
+        groups_collection.update_one({"chat_id": chat_id}, {"$set": {"chat_id": chat_id}}, upsert=True)
+        update.message.reply_text('Hello! I am EmojiFight bot. Use /help to see available commands.')
 
 def is_owner(update: Update) -> bool:
     return update.message.from_user.id == OWNER_ID
