@@ -124,6 +124,12 @@ schedule.every().day.at("00:00").do(clear_top_collection)
 
 # ...
 
+# Create an instance of the Updater class
+updater = Updater(token=TELEGRAM_TOKEN, use_context=True)
+
+# Get the dispatcher to register handlers
+dispatcher = updater.dispatcher
+
 # Register command handlers
 dispatcher.add_handler(CommandHandler("start", start))
 dispatcher.add_handler(CommandHandler("broadcast", broadcast, pass_args=True))
